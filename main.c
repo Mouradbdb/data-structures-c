@@ -1,32 +1,36 @@
 #include <stdio.h>
-#include "include/stack.h"
+#include "include/queue.h"
 
 int main(void)
 {
-    Stack stack;
+    Queue queue;
 
-    stack_init(&stack, 5);
-
-    stack_push(&stack, 10);
-    stack_push(&stack, 20);
-    stack_push(&stack, 30);
-
-    printf("Top: %d\n", stack_peek(&stack));
-
-    stack_pop(&stack);
-
-    printf("Top after pop: %d\n", stack_peek(&stack));
+    queue_init(&queue, 5);
 
     printf("Empty: %s\n",
-           stack_is_empty(&stack) ? "yes" : "no");
+           queue_is_empty(&queue) ? "yes" : "no");
 
-    stack_pop(&stack);
-    stack_pop(&stack);
+    queue_enqueue(&queue, 10);
+    queue_enqueue(&queue, 20);
+    queue_enqueue(&queue, 30);
 
-    printf("Empty after removing everything: %s\n",
-           stack_is_empty(&stack) ? "yes" : "no");
+    printf("Front: %d\n", queue_peek(&queue));
 
-    stack_free(&stack);
+    queue_dequeue(&queue);
+
+    printf("Front after dequeue: %d\n", queue_peek(&queue));
+
+    queue_enqueue(&queue, 40);
+    queue_enqueue(&queue, 50);
+
+    printf("Front: %d\n", queue_peek(&queue));
+
+    queue_dequeue(&queue);
+    queue_dequeue(&queue);
+
+    printf("Front after two more dequeues: %d\n", queue_peek(&queue));
+
+    queue_free(&queue);
 
     return 0;
 }
