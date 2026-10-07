@@ -1,46 +1,32 @@
 #include <stdio.h>
-#include "include/array.h"
+#include "include/stack.h"
 
 int main(void)
 {
-    Array array;
+    Stack stack;
 
-    array_init(&array, 10);
+    stack_init(&stack, 5);
 
-    array_insert(&array, 0, 10);
-    array_insert(&array, 1, 20);
-    array_insert(&array, 2, 30);
+    stack_push(&stack, 10);
+    stack_push(&stack, 20);
+    stack_push(&stack, 30);
 
-    printf("Size: %d\n", array_size(&array));
+    printf("Top: %d\n", stack_peek(&stack));
 
-    for (int i = 0; i < array_size(&array); i++)
-    {
-        printf("%d ", array_get(&array, i));
-    }
+    stack_pop(&stack);
 
-    printf("\n");
+    printf("Top after pop: %d\n", stack_peek(&stack));
 
-    array_insert(&array, 1, 99);
+    printf("Empty: %s\n",
+           stack_is_empty(&stack) ? "yes" : "no");
 
-    printf("After insertion: ");
-    for (int i = 0; i < array_size(&array); i++)
-    {
-        printf("%d ", array_get(&array, i));
-    }
+    stack_pop(&stack);
+    stack_pop(&stack);
 
-    printf("\n");
+    printf("Empty after removing everything: %s\n",
+           stack_is_empty(&stack) ? "yes" : "no");
 
-    array_delete(&array, 2);
-
-    printf("After deletion: ");
-    for (int i = 0; i < array_size(&array); i++)
-    {
-        printf("%d ", array_get(&array, i));
-    }
-
-    printf("\n");
-
-    array_free(&array);
+    stack_free(&stack);
 
     return 0;
 }
